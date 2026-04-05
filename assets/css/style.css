@@ -9,7 +9,26 @@ body {
 }
 
 .logo {
+  top: 10px;
   width: 130px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/*TABLET*/
+@media (max-width:992px) {
+  .logo {
+    width: 60px;
+  }
+}
+
+/*MOBILE*/
+@media (max-width: 576px) {
+  .logo {
+    width: 50px;
+    top: 55%;
+  }
 }
 
 .social {
@@ -154,4 +173,75 @@ body {
   font-size: 1.8rem;
   font-weight: bold;
   color: #3ea6ff;
+}
+
+.next-game {
+  background-color: #3ea6ff;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.next-game p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.game-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+
+.game-info strong {
+  color: #0b1d3a;
+}
+
+.mini-logo {
+  width: 30px;
+}
+
+.next-game {
+  background-color: #3ea6ff;
+  padding: 12px 0;
+  text-align: center;
+}
+
+.next-label {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  display: block;
+}
+
+.match {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.match strong {
+  margin: 0 10px;
+}
+
+.match-info {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.next-game-navbar {
+  font-size: 0.75rem;
+  color: white;
+}
+
+.match {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+}
+
+.match-info {
+  font-size: 0.7rem;
+  opacity: 0.8;
 }
