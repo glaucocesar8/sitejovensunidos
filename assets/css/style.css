@@ -26,12 +26,13 @@ body {
 /*MOBILE*/
 @media (max-width: 576px) {
   .logo {
+    position: static;
     width: 50px;
     top: 55%;
   }
 }
 
-.social {
+.social {  
   display: flex;
   align-items: center;
 }
