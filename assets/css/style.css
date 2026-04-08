@@ -26,7 +26,7 @@ body {
 /*MOBILE*/
 @media (max-width: 576px) {
   .logo {
-    position: static;
+    position: absolute;
     width: 50px;
     top: 55%;
   }
