@@ -4,6 +4,13 @@ const db = require('./config/db');
 
 app.use(express.json());
 
+app.get('/test-db', (req, res) => {
+  db.query('SELECT 1', (err, result) => {
+    if (err) return res.send(err);
+    res.send('Banco conectado 🚀');
+  });
+});
+
 app.get('/', (req, res) => {
   res.send('API Jovens Unidos rodando 🚀');
 });
