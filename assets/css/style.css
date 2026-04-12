@@ -8,12 +8,8 @@ body {
   background-color: #06142b;
 }
 
-.logo {
-  top: 10px;
-  width: 130px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+.logo {  
+  width: 70px;  
 }
 
 /*TABLET*/
