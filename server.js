@@ -15,16 +15,19 @@ app.get('/test', (req, res) => {
   res.send('Teste OK ✅');
 });
 
+app.get('/jogos', (req, res) => {
+  res.json([
+    {
+      time_casa: "Jovens Unidos",
+      time_fora: "Aquarela",
+      data: "15/04/2026"
+    }
+  ]);
+});
+
 const PORT = process.env.PORT || 3000;
 
 // 🔥 MUITO IMPORTANTE
 app.listen(PORT, '0.0.0.0', () => {
   console.log('Servidor rodando na porta ' + PORT);
-});
-
-app.get('/jogos', (req, res) => {
-  db.query('SELECT * FROM jogos', (err, result) => {
-    if (err) return res.send(err);
-    res.json(result);
-  });
 });
