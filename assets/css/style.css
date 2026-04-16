@@ -4,31 +4,35 @@ body {
   font-family: 'Oswald', sans-serif;
 }
 
-.navbar {
-  background-color: #06142b;
+/* NAVBAR */
+.navbar {  
+  display: flex;
 }
 
-.logo {  
-  width: 70px;  
+/* LOGO */
+.logo {
+  width: 150px;
+  top: 55%;
 }
 
-/*TABLET*/
-@media (max-width:992px) {
+/* TABLET */
+@media (max-width: 992px) {
   .logo {
-    width: 60px;
-  }
-}
-
-/*MOBILE*/
-@media (max-width: 576px) {
-  .logo {
-    position: absolute;
-    width: 50px;
+    width: 70px;
     top: 55%;
   }
 }
 
-.social {  
+/* MOBILE */
+@media (max-width: 576px) {
+  .logo {    
+    width: 70px;
+    top: 55%;
+  }
+}
+
+/* REDES */
+.social {
   display: flex;
   align-items: center;
 }
@@ -46,6 +50,7 @@ body {
   transform: scale(1.2);
 }
 
+/* HERO */
 .hero {
   height: 80vh;
   background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
@@ -61,11 +66,13 @@ body {
   font-weight: 600;
 }
 
+/* BOTÃO */
 .btn-primary {
   background-color: #3ea6ff;
   border: none;
 }
 
+/* CARDS */
 .card {
   background-color: #112b52;
   border: none;
@@ -73,13 +80,11 @@ body {
   color: white;
 }
 
-.footer {
-  background-color: #06142b;
-  padding: 20px;
-  text-align: center;
-}
-
+/* RESULTADOS */
 .result-card {
+  background-color: #112b52;
+  border-radius: 12px;
+  color: white;
   transition: 0.3s;
   height: 100%;
   display: flex;
@@ -92,55 +97,7 @@ body {
   background-color: #16386b;
 }
 
-.team-name {
-  font-size: 1.2rem;
-  opacity: 0.9;
-}
-
-.score {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #3ea6ff;
-  margin: 10px 0;
-}
-
-.opponent {
-  opacity: 0.7;
-}
-
-.sponsor-card {
-  background-color: #112b52;
-  border-radius: 12px;
-  transition: 0.3s;
-  height: 100%;
-}
-
-.sponsor-card:hover {
-  transform: translateY(-6px);
-  background-color: #16386b;
-}
-
-.sponsor-card p {
-  margin: 0;
-  font-size: 0.95rem;
-}
-
-.icon {
-  font-size: 28px;
-}
-
-.result-card {
-  background-color: #112b52;
-  border-radius: 12px;
-  color: white;
-  transition: 0.3s;
-}
-
-.result-card:hover {
-  transform: translateY(-5px);
-  background-color: #16386b;
-}
-
+/* TIMES */
 .teams {
   display: flex;
   align-items: center;
@@ -166,43 +123,51 @@ body {
   object-fit: contain;
 }
 
+/* PLACAR */
 .score {
   font-size: 1.8rem;
   font-weight: bold;
   color: #3ea6ff;
 }
 
-.next-game {
-  background-color: #3ea6ff;
-  padding: 10px;
-  font-weight: bold;
+/* PATROCÍNIO */
+.sponsor-card {
+  background-color: #112b52;
+  border-radius: 12px;
+  transition: 0.3s;
+  height: 100%;
+}
+
+.sponsor-card:hover {
+  transform: translateY(-6px);
+  background-color: #16386b;
+}
+
+.sponsor-card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.icon {
+  font-size: 28px;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #06142b;
+  padding: 20px;
+  text-align: center;
+}
+
+/* PRÓXIMO JOGO */
+.next-game {  
+  padding: 12px 0;
+  text-align: center;
 }
 
 .next-game p {
   margin: 0;
   font-size: 0.9rem;
-}
-
-.game-info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.1rem;
-}
-
-.game-info strong {
-  color: #0b1d3a;
-}
-
-.mini-logo {
-  width: 30px;
-}
-
-.next-game {
-  background-color: #3ea6ff;
-  padding: 12px 0;
-  text-align: center;
 }
 
 .next-label {
@@ -211,7 +176,11 @@ body {
   display: block;
 }
 
+/* MATCH */
 .match {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 1.1rem;
   font-weight: bold;
   margin: 5px 0;
@@ -221,24 +190,35 @@ body {
   margin: 0 10px;
 }
 
+/* INFO */
 .match-info {
   font-size: 0.8rem;
   opacity: 0.9;
 }
 
-.next-game-navbar {
-  font-size: 0.75rem;
-  color: white;
+.mini-logo {
+  width: 30px;
 }
 
-.match {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-weight: bold;
+.game-info strong {
+  color: #0b1d3a;
 }
 
-.match-info {
-  font-size: 0.7rem;
+.next-game-section {
+  margin-top: 10px;
+  background-color: #e8edf1;
+  color: #06142b;
+}
+
+.next-game-card { 
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.next-label {
+  font-size: 1rem;
   opacity: 0.8;
+  display: block;
+  margin-bottom: 5px;
 }

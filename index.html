@@ -22,51 +22,55 @@
 
 <body>
 
-<nav class="navbar">
-  <div class="container d-flex align-items-center justify-content-between">
+<!-- NAVBAR -->
+<nav class="navbar py-2 position-relative">
 
-    <!-- PRÓXIMO JOGO (ESQUERDA) -->
-    
-    <div class="next-game-navbar">
-      
-      <p>Próximo jogo</p>
-      <div class="match">
-        
-        <span>Jovens Unidos F.C</span>
-        <img src="assets/img/logo.png" class="mini-logo">
-        
-        <strong>VS</strong>
-        
-        
-        <span>Ágil</span>
-      </div>
+  <!-- LOGO CENTRAL -->
+  <div class="w-100 text-center">
+    <img src="assets/img/logo.png" class="logo">
+  </div>
 
-      <div class="match-info">        
-        <p> 📅 18/04/2026 • ⏰ 16:00 • 📍 Beto Rezek</p>        
-      </div>
-      
+  <!-- REDES (lado direito) -->
+  <div class="position-absolute end-0 top-50 translate-middle-y pe-3">
+    <div class="social d-flex">
+      <a href="https://instagram.com/jovens_unidos_f.c"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=61588414905360"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.tiktok.com/@jovensunidosfc"><i class="fab fa-tiktok"></i></a>
     </div>
-    
-    <!-- LOGO (CENTRO) <img src="assets/img/logo.png" class="logo">-->
-    
+  </div>
 
-    <!-- REDES (DIREITA) -->
-    <div class="social">
-      <a href="https://instagram.com/jovens_unidos_f.c" target="_blank">
-        <i class="fab fa-instagram"></i>
-      </a>
+</nav>
 
-      <a href="https://www.facebook.com/profile.php?id=61588414905360" target="_blank">
-        <i class="fab fa-facebook"></i>
-      </a>
+<!-- PRÓXIMO JOGO -->
+<section class="next-game-section">
+  <div class="container d-flex justify-content-center">
 
-      <a href="https://www.tiktok.com/@jovensunidosfc" target="_blank">
-        <i class="fab fa-tiktok"></i>
-      </a>
+    <div class="text-center col-md-8 col-lg-6">
+
+      <span class="next-label">PRÓXIMO JOGO</span>
+
+      <div class="match justify-content-center">
+
+        <span id="timeFora">Ágil</span>
+
+        <img src="assets/img/logoadversarios/agil.png" class="mini-logo mx-2">
+
+        <strong>VS</strong>
+
+        <img src="assets/img/logo.png" class="mini-logo mx-2">
+
+        <span id="timeCasa">Jovens Unidos</span>
+
+      </div>
+
+      <div class="match-info mt-2">
+        <p id="infoJogo">📅 18/04/2026 • ⏰ 16:00 • 📍 Beto Rezek</p>
+      </div>
+
     </div>
 
   </div>
-</nav>
+</section>
 
 <!-- HERO -->
 <section class="hero">
