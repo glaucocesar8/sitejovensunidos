@@ -264,7 +264,7 @@ body {
 
 .elenco-section {
   background: #0b1d3a;
-  padding: 50px 0;
+  padding: 20px 0;
 }
 
 .player-card {
@@ -280,8 +280,7 @@ body {
 }
 
 .player-card img {
-  width: 50%;
-  
+  width: 50%;  
   object-fit: contain;    /* mantém padrão bonito */
   border-radius: 10px;
   margin-bottom: 10px;
