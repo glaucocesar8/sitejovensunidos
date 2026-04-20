@@ -197,6 +197,10 @@ body {
 }
 
 .mini-logo {
+  width: 30px;
+}
+
+.mini-logo-time-fora {
   width: 40px;
 }
 
@@ -217,8 +221,107 @@ body {
 }
 
 .next-label {
-  font-size: 1rem;
+  font-size: 0.75rem;
   opacity: 0.8;
   display: block;
   margin-bottom: 5px;
+}
+
+#carouselElenco img {
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+#carouselElenco img:hover {
+  transform: scale(1.05);
+}
+
+.carousel-inner {
+  cursor: grab;
+}
+
+.carousel-inner:active {
+  cursor: grabbing;
+}
+
+.carousel-item {
+  transition: transform 0.4s ease;
+}
+
+.player-img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain; /* mantém o jogador inteiro */
+
+  width: 150px;
+  height: 170px;
+  object-fit: contain;
+  background: black;
+  border-radius: 10px;
+}
+
+.elenco-section {
+  background: #0b1d3a;
+  padding: 50px 0;
+}
+
+.player-card {
+  background: #112b52;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  transition: 0.3s;
+  display: flex;  
+  gap: 15px;
+  width: 320px;
+  height: 190px;  
+}
+
+.player-card img {
+  width: 50%;
+  
+  object-fit: contain;    /* mantém padrão bonito */
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.player-card h5 {
+  margin: 5px 0;
+}
+
+.player-card span {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.player-card:hover {
+  transform: scale(1.05);
+  background: #16386b;
+}
+
+/* Slick ajustes */
+.slick-slide {
+  padding: 10px;
+}
+
+.slick-center .player-card {
+  transform: scale(1.1);
+  background: #1d4b8f;
+}
+
+.player-info h5 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.position {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.player-stats p {
+  margin: 0;
+  font-size: 0.8rem;
 }

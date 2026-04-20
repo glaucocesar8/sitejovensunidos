@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    <!-- CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +24,7 @@
   <!-- Font Awesome (ícones) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/teste2.css">
 </head>
 
 <body>
@@ -46,22 +53,274 @@
   <div class="container d-flex justify-content-center">
 
     <div class="text-center col-md-8 col-lg-6">
-      <!--
+      
       <span class="next-label">PRÓXIMO JOGO</span>
       <div class="match justify-content-center">
-        <span id="timeFora">Ágil</span>
-        <img src="assets/img/logoadversarios/agil.png" class="mini-logo mx-2">
+        <span id="timeFora">067FC</span>
+        <img src="assets/img/logoadversarios/067fc.png" class="mini-logo-time-fora mx-2">
         <strong>VS</strong>
         <img src="assets/img/logo.png" class="mini-logo mx-2">
         <span id="timeCasa">Jovens Unidos</span>
       </div>
-
       <div class="match-info mt-2">
-        <p id="infoJogo">📅 18/04/2026 • ⏰ 16:00 • 📍 Beto Rezek</p>
+        <p id="infoJogo">📅 25/04/2026 • ⏰ 16:00 • 📍 Beto Rezek</p>
       </div>
-      -->
+      
     </div>
 
+  </div>
+</section>
+
+<!-- ELENCO -->
+<section class="elenco-section">
+  <div class="container">
+
+    <h3 class="text-center mb-4 text-white">ELENCO</h3>
+
+    <div class="slider-elenco">
+
+      <!-- CARD -->
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/alvarenga.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Alvarenga</h5>
+          <span class="position">Volante</span>
+          <div class="player-stats mt-2">
+            <p>Idade: 30</p>
+            <p>Data nascimento: 08/10/1995</p>           
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/freire.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Freire</h5>
+          <span class="position">Lateral direito</span>
+          <div class="player-stats mt-2">
+            <p>Idade: 32</p>
+            <p>Data nascimento: 09/04/1994</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/alifer.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Alifer</h5>
+          <span class="position">Lateral direito</span>
+          <div class="player-stats mt-2">
+            <p>Idade: 31</p>
+            <p>Data nascimento: 10/05/1994</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/augusto.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Augusto</h5>
+          <span class="position">Goleiro</span>
+          <div class="player-stats mt-2">
+            <p>Idade: -</p>
+            <p>Data nascimento: -</p>            
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/bruno.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Bruno</h5>
+          <span class="position">Atacante</span>
+          <div class="player-stats mt-2">
+            <p>Idade: -</p>
+            <p>Data nascimento: -</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/caco.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Caco</h5>
+          <span class="position">Volante</span>
+          <div class="player-stats mt-2">
+            <p>Idade: 26</p>
+            <p>Data nascimento: 24/01/2000</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/elber.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Elber</h5>
+          <span class="position">Atacante</span>
+          <div class="player-stats mt-2">
+            <p>Idade: -</p>
+            <p>Data nascimento: -</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/gabriel.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Gabriel</h5>
+          <span class="position">Meia</span>
+          <div class="player-stats mt-2">
+            <p>Idade: 25</p>
+            <p>Data nascimento: 17/12/2000</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/geovanne.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Geovanne Patrola</h5>
+          <span class="position">Zagueiro</span>
+          <div class="player-stats mt-2">
+            <p>Idade: 34</p>
+            <p>Data nascimento: 12/04/1992</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/glauco.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Glauco</h5>
+          <span class="position">Meia</span>
+          <div class="player-stats mt-2">
+            <p>Idade: 38</p>
+            <p>Data nascimento: 28/12/1987</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/jorge.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Jorge Dias</h5>
+          <span class="position">Meia</span>
+          <div class="player-stats mt-2">
+            <p>Idade: 26</p>
+            <p>Data nascimento: 31/03/2000</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/mota.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Mota</h5>
+          <span class="position">Lateral esquerdo</span>
+          <div class="player-stats mt-2">
+            <p>Idade: 36</p>
+            <p>Data nascimento: 18/01/1990</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/vini_vodka.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Vini Vodka</h5>
+          <span class="position">Zagueiro</span>
+          <div class="player-stats mt-2">
+            <p>Idade: -</p>
+            <p>Data nascimento: -</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/Vinícius Trakinas.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Vini Trakinas</h5>
+          <span class="position">Zagueiro</span>
+          <div class="player-stats mt-2">
+           <p>Idade: 28</p>
+            <p>Data nascimento: 31/01/1998</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/luciano.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Luciano</h5>
+          <span class="position">Meia</span>
+          <div class="player-stats mt-2">
+           <p>Idade: 36</p>
+            <p>Data nascimento: 04/11/1989</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/galo.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Fernando Galo</h5>
+          <span class="position">Atacante</span>
+          <div class="player-stats mt-2">
+           <p>Idade: 35</p>
+            <p>Data nascimento: 07/04/1991</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/martelo.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Martelinho</h5>
+          <span class="position">Atacante</span>
+          <div class="player-stats mt-2">
+           <p>Idade: 38</p>
+            <p>Data nascimento: 05/03/1988</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/wendel.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Wendel</h5>
+          <span class="position">Meia</span>
+          <div class="player-stats mt-2">
+           <p>Idade: 33</p>
+            <p>Data nascimento: 30/07/1992</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/teo.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Téo</h5>
+          <span class="position">Goleiro</span>
+          <div class="player-stats mt-2">
+           <p>Idade: -</p>
+            <p>Data nascimento: -</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="player-card d-flex align-items-center">
+        <img src="assets/img/elenco/gui.png" class="player-img">
+        <div class="player-info ms-3 text-start">
+          <h5>Guilherme</h5>
+          <span class="position">Volante</span>
+          <div class="player-stats mt-2">
+           <p>Idade: -</p>
+            <p>Data nascimento: -</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -86,60 +345,61 @@
 <!-- RESULTADOS -->
 <div class="row g-4">
   <h2 class="text-center">Últimos jogos</h2>
-  <div class="row g-4">
+    <div class="row g-4">
 
-    <div class="col-md-4">
+      <div class="col-md-4">
       <div class="card result-card p-3">
         <div class="teams">
           <div class="team">
             <img src="assets/img/logo.png" class="team-logo">
             <span>Jovens Unidos</span>
           </div>
-          <div class="score">5 x 2</div>            
+          <div class="score">5 x 2</div>         
           <div class="team">
             <img src="assets/img/logoadversarios/agil.png" class="team-logo">
             <span>Ágil</span>
           </div>
         </div>
       </div>
-    </div>
+      </div>
 
-    <div class="col-md-4">
-      <div class="card result-card p-3">
-        <div class="teams">
-          <div class="team">
-            <img src="assets/img/logo.png" class="team-logo">
-            <span>Jovens Unidos</span>
-          </div>
-          <div class="score">10 x 4</div>
-          <div class="team">
-            <!-- <img src="" class="team-logo"> -->
-            <span>Atlécito Barra</span>
+      <div class="col-md-4">
+        <div class="card result-card p-3">
+          <div class="teams">
+            <div class="team">
+              <img src="assets/img/logo.png" class="team-logo">
+              <span>Jovens Unidos</span>
+            </div>
+            <div class="score">10 x 4</div>
+            <div class="team">
+              <!-- <img src="" class="team-logo"> -->
+              <span>Atlécito Barra</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-4">
-      <div class="card result-card p-3">
-        <div class="teams">
-          <div class="team">
-            <img src="assets/img/logo.png" class="team-logo">
-            <span>Jovens Unidos</span>
-          </div>
-          <div class="score">3 x 2</div>
-          <div class="team">
-            <img src="assets/img/logoadversarios/colorado.png" class="team-logo">
-            <span>Colorado</span>
+      <div class="col-md-4">
+        <div class="card result-card p-3">
+          <div class="teams">
+            <div class="team">
+              <img src="assets/img/logo.png" class="team-logo">
+              <span>Jovens Unidos</span>
+            </div>
+            <div class="score">3 x 2</div>
+            <div class="team">
+              <img src="assets/img/logoadversarios/colorado.png" class="team-logo">
+              <span>Colorado</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>        
+
+    </div>
 
 </div>
 
-</div>
-
+<!-- PATROCÍNIO -->
 <section id="patrocinio" class="container py-5 text-center">
   <h2 class="mb-3">Seja um Patrocinador</h2>
 
@@ -192,3 +452,26 @@
 
 </body>
 </html>
+
+<script>
+  $(document).ready(function(){
+    $('.slider-elenco').slick({
+      autoplay: true,
+      autoplaySpeed: 2500,
+      centerMode: true,
+      slidesToShow: 3,
+      arrows: true,
+      infinite: true,
+      swipe: true,
+
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+      ]
+    });
+  });
+</script>
