@@ -496,9 +496,11 @@ body {
 }
 
 .ads-container {
-  min-height: 90px;
   max-width: 1000px;
-  margin: 20px auto;
+  margin: 15px auto;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
 }
 
 /* TABLET */
@@ -512,7 +514,7 @@ body {
 /* MOBILE */
 @media (max-width: 576px) {
   .ads-container {
-    min-height: 120px;
+    min-height: unset;
     padding: 0 10px;
   }
 }
