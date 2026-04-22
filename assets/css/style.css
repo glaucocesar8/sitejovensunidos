@@ -489,3 +489,21 @@ body {
 .slick-next {
   right: 20px;
 }
+
+.adsbygoogle {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.ads-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+  min-height: 90px;
+}
+
+@media (max-width: 768px) {
+  .ads-container {
+    min-height: 120px;
+  }
+}
