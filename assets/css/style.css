@@ -496,16 +496,11 @@ body {
 }
 
 .ads-container {  
-  max-width: 1000px;
-  margin: 20px auto;
   min-height: 90px;
-  padding: 10px;
 }
 
 @media (max-width: 768px) {
   .ads-container {
-    min-height: 50px;
-    padding: 5px;
-    margin: 10px auto;
+    min-height: auto;
   }
 }
