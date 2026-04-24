@@ -154,7 +154,7 @@ function filtrar() {
 
 // PRÓXIMO JOGO
 function carregarProximoJogo() {
-  fetch('http://localhost:3000/proximo-jogo')
+  fetch(`${API_URL}/proximo-jogo`)
     .then(res => res.json())
     .then(jogo => {
 
