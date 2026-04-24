@@ -54,9 +54,8 @@ function carregarJogos(url = `${API_URL}/jogos`) {
     });
 }
 
-// 🔥 GARANTE QUE O DOM CARREGOU
+// GARANTE QUE O DOM CARREGOU
 document.addEventListener('DOMContentLoaded', () => {
-
 
   const input = document.getElementById('adversario_nome');
   const hiddenId = document.getElementById('adversario_id');
@@ -72,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   timeout = setTimeout(async () => {
     const termo = input.value.trim();
 
-    // 🔥 LIMPA O ID SEMPRE QUE DIGITA
+    // LIMPA O ID SEMPRE QUE DIGITA
     hiddenId.value = '';
 
     if (termo.length === 0) {
@@ -126,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// 🔥 FILTRO
+// FILTRO
 function filtrar() {
   const adversario = document.getElementById('adversario_id').value;
   const resultado = document.getElementById('resultado').value;
@@ -171,17 +170,24 @@ function carregarProximoJogo() {
       document.getElementById('logoFora').src = jogo.logo_fora;
       document.getElementById('logoCasa').src = jogo.logo_casa;
 
-      // data formatada
-      const data = new Date(jogo.data_jogo);
+      const dataStr = jogo.data_jogo;
 
-      const dataFormatada = data.toLocaleDateString('pt-BR');
-      const hora = data.toLocaleTimeString('pt-BR', {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
+      // 🔥 remove o Z (UTC)
+      const semUTC = dataStr.replace('Z', '');
+
+      // cria a data sem conversão de fuso
+      const data = new Date(semUTC);
+
+      // pega valores manualmente
+      const dia = String(data.getDate()).padStart(2, '0');
+      const mes = String(data.getMonth() + 1).padStart(2, '0');
+      const ano = data.getFullYear();
+
+      const hora = String(data.getHours()).padStart(2, '0');
+      const minuto = String(data.getMinutes()).padStart(2, '0');
 
       document.getElementById('infoJogo').innerText =
-        `📅 ${dataFormatada} • ⏰ ${hora} • 📍 ${jogo.local}`;
+        `📅 ${dia}/${mes}/${ano} • ⏰ ${hora}:${minuto} • 📍 ${jogo.local}`;
     });
 }
 

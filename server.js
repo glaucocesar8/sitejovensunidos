@@ -4,7 +4,7 @@ const db = require('./config/db');
 const cors = require('cors');
 app.use(cors());
 
-// rota principal (OBRIGATÓRIA)
+// Rota principal
 app.get('/', (req, res) => {
   res.status(200).json({
     status: 'ok',
@@ -75,8 +75,7 @@ app.get('/jogos', async (req, res) => {
     query += ' ORDER BY j.data_jogo DESC ';
 
     const [rows] = await db.query(query, params);
-
-    // 🔥 VOLTOU AO PADRÃO ANTIGO
+    
     res.json(rows);
 
   } catch (error) {
@@ -107,7 +106,7 @@ app.get('/proximo-jogo', async (req, res) => {
         tf.nome AS time_fora,
         tc.logo AS logo_casa,
         tf.logo AS logo_fora,
-        j.data_jogo,
+        DATE_FORMAT(j.data_jogo, '%Y-%m-%d %H:%i:%s') AS data_jogo,
         j.local
       FROM jogos j
       JOIN times tc ON tc.id = j.time_casa_id
@@ -132,7 +131,6 @@ app.get('/proximo-jogo', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-// 🔥 MUITO IMPORTANTE
 app.listen(PORT, '0.0.0.0', () => {
   console.log('Servidor rodando na porta ' + PORT);
 });
