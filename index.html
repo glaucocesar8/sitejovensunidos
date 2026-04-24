@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2759869763131312"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
 <head>
   <meta charset="UTF-8">
@@ -29,6 +29,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2759869763131312"
+     crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -61,15 +64,15 @@
       <span class="next-label">PRÓXIMO JOGO</span>
       <div class="match justify-content-center">
         <span id="timeFora">067FC</span>
-        <img src="assets/img/logoadversarios/067fc.png" class="mini-logo-time-fora mx-2">
+        <img id="logoFora" src="" class="mini-logo-time-fora mx-2">
         <strong>VS</strong>
-        <img src="assets/img/logo.png" class="mini-logo mx-2">
+        <img id="logoCasa" src="" class="mini-logo mx-2">
         <span id="timeCasa">Jovens Unidos</span>
       </div>
       <div class="match-info mt-2">
         <p id="infoJogo">📅 25/04/2026 • ⏰ 16:00 • 📍 Beto Rezek</p>
       </div>
-      
+    
     </div>
 
   </div>
@@ -428,60 +431,67 @@
   </p>
 </section>
 
-<!-- RESULTADOS -->
-<div class="row g-4">
-  <h2 class="text-center">Últimos jogos</h2>
-    <div class="row g-4">
+<h2 class="text-center mt-5 text-white">Pesquisar Jogos</h2>
 
-      <div class="col-md-4">
-      <div class="card result-card p-3">
-        <div class="teams">
-          <div class="team">
-            <img src="assets/img/logo.png" class="team-logo">
-            <span>Jovens Unidos</span>
-          </div>
-          <div class="score">5 x 2</div>         
-          <div class="team">
-            <img src="assets/img/logoadversarios/agil.png" class="team-logo">
-            <span>Ágil</span>
-          </div>
-        </div>
-      </div>
-      </div>
+<div class="container my-4">
+  <div class="row g-2">
 
-      <div class="col-md-4">
-        <div class="card result-card p-3">
-          <div class="teams">
-            <div class="team">
-              <img src="assets/img/logo.png" class="team-logo">
-              <span>Jovens Unidos</span>
-            </div>
-            <div class="score">10 x 4</div>
-            <div class="team">
-              <!-- <img src="" class="team-logo"> -->
-              <span>Atlécito Barra</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card result-card p-3">
-          <div class="teams">
-            <div class="team">
-              <img src="assets/img/logo.png" class="team-logo">
-              <span>Jovens Unidos</span>
-            </div>
-            <div class="score">3 x 2</div>
-            <div class="team">
-              <img src="assets/img/logoadversarios/colorado.png" class="team-logo">
-              <span>Colorado</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <!-- ANO -->
+    <div class="col-6 col-md-2">
+      <select id="ano" class="form-select">
+        <option value="">Todos os anos</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+      </select>
     </div>
+
+    <!-- DIA -->
+    <div class="col-6 col-md-2">
+      <select id="diaSemana" class="form-select">
+        <option value="">Dia da semana</option>
+        <option value="1">Dom</option>
+        <option value="2">Seg</option>
+        <option value="3">Ter</option>
+        <option value="4">Qua</option>
+        <option value="5">Qui</option>
+        <option value="6">Sex</option>
+        <option value="7">Sáb</option>
+      </select>
+    </div>
+
+    <!-- ADVERSÁRIO -->
+    <div class="col-6 col-md-4 position-relative">
+      <input 
+        type="text" 
+        id="adversario_nome" 
+        class="form-control" 
+        placeholder="Adversário">
+      <input type="hidden" id="adversario_id">
+      <ul id="sugestoes" class="list-group position-absolute w-100 shadow"></ul>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="col-6 col-md-2">
+      <select id="resultado" class="form-select">
+        <option value="">Resultado</option>
+        <option value="vitoria">Vitória</option>
+        <option value="empate">Empate</option>
+        <option value="derrota">Derrota</option>
+      </select>
+    </div>
+
+    <!-- BOTÃO -->
+    <div class="col-12 col-md-2 text-center">
+      <button onclick="filtrar()" class="btn btn-primary w-75 w-md-100">
+        Filtrar
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="row g-4" id="lista-jogos">
 
 </div>
 
@@ -489,7 +499,7 @@
 <section id="patrocinio" class="container py-5 text-center">
   <h2 class="mb-3">Seja um Patrocinador</h2>
 
-  <p class="mb-5 text-muted">
+  <p>
     Sua marca pode aparecer nas nossas redes sociais, jogos e conteúdos semanais.
   </p>
 
@@ -549,6 +559,8 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/script.js"></script>
 
 </body>
 </html>

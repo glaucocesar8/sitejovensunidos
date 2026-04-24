@@ -518,3 +518,27 @@ body {
     padding: 0 10px;
   }
 }
+
+#sugestoes {
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#sugestoes li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+#sugestoes img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+#sugestoes li:hover {
+  background-color: #0d6efd;
+  color: white;
+}
