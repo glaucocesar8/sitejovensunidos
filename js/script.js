@@ -1,4 +1,4 @@
-const API_URL = 'sitejovensunidos-production.up.railway.app';
+const API_URL = 'https://sitejovensunidos-production.up.railway.app';
 
 // 🔥 CARREGAR JOGOS INICIAIS
 function carregarJogos(url = `${API_URL}/jogos`) {
