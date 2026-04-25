@@ -1,4 +1,6 @@
-const API_URL = 'https://sitejovensunidos-production.up.railway.app';
+const API_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:3000'
+  : 'https://sitejovensunidos-production.up.railway.app';
 
 // 🔥 CARREGAR JOGOS INICIAIS
 function carregarJogos(url = `${API_URL}/jogos`) {
@@ -193,3 +195,84 @@ function carregarProximoJogo() {
 
 // chama ao carregar
 document.addEventListener('DOMContentLoaded', carregarProximoJogo);
+
+function abrirMenu() {
+  document.getElementById('menuLateral').classList.add('active');
+  document.getElementById('overlay').classList.add('active');
+}
+
+function fecharMenu() {
+  document.getElementById('menuLateral').classList.remove('active');
+  document.getElementById('overlay').classList.remove('active');
+}
+
+document.getElementById('formJogo').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const token = localStorage.getItem('token');
+
+  await fetch(`${API_URL}/jogos`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json',
+                'Authorization': token
+     },
+    body: JSON.stringify({
+      time_casa_id: document.getElementById('casa').value,
+      time_fora_id: document.getElementById('fora').value,
+      data_jogo: document.getElementById('data').value,
+      local: document.getElementById('local').value,
+      status: 'agendado'
+    })
+  });
+
+  alert('Jogo cadastrado!');
+});
+
+async function atualizarJogo(id) {
+  await fetch(`${API_URL}/jogos/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      gols_casa: 2,
+      gols_fora: 1,
+      status: 'finalizado'
+    })
+  });
+}
+
+function auth(req, res, next) {
+  const token = req.headers.authorization;
+
+  if (!token) return res.sendStatus(401);
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch {
+    return res.sendStatus(403);
+  }
+}
+
+async function login() {  
+  const res = await fetch(`${API_URL}/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: document.getElementById('email').value,
+      senha: document.getElementById('senha').value
+    })
+  });
+
+  const data = await res.json();
+
+  if (data.token) {
+    localStorage.setItem('token', data.token);
+    alert('Login OK!');
+    window.location.href = 'admin.html';
+  } else {
+    alert('Erro no login');
+  }
+}

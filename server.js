@@ -1,8 +1,29 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const db = require('./config/db');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 app.use(cors());
+
+function auth(req, res, next) {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ error: 'Token não enviado' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, 'SEGREDO_TOP'); // ou process.env.JWT_SECRET
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(403).json({ error: 'Token inválido' });
+  }
+}
 
 // Rota principal
 app.get('/', (req, res) => {
@@ -10,11 +31,6 @@ app.get('/', (req, res) => {
     status: 'ok',
     message: 'API Jovens Unidos 🚀'
   });
-});
-
-// rota de teste
-app.get('/test', (req, res) => {
-  res.send('Teste OK ✅');
 });
 
 app.get('/jogos', async (req, res) => {
@@ -127,6 +143,68 @@ app.get('/proximo-jogo', async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Erro ao buscar próximo jogo' });
   }
+});
+
+app.post('/jogos', auth, async (req, res) => {
+  const { time_casa_id, time_fora_id, gols_casa, gols_fora, data_jogo, local, status } = req.body;
+
+  try {
+    await db.query(`
+      INSERT INTO jogos 
+      (time_casa_id, time_fora_id, gols_casa, gols_fora, data_jogo, local, status)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, [time_casa_id, time_fora_id, gols_casa, gols_fora, data_jogo, local, status]);
+
+    res.json({ success: true });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.put('/jogos/:id', async (req, res) => {
+  const { id } = req.params;
+  const { gols_casa, gols_fora, status } = req.body;
+
+  try {
+    await db.query(`
+      UPDATE jogos 
+      SET gols_casa = ?, gols_fora = ?, status = ?
+      WHERE id = ?
+    `, [gols_casa, gols_fora, status, id]);
+
+    res.json({ success: true });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/login', async (req, res) => {
+  const { email, senha } = req.body;
+
+  const [rows] = await db.query(
+    'SELECT * FROM usuarios WHERE email = ?',
+    [email]
+  );
+
+  if (rows.length === 0) {
+    return res.status(401).json({ error: 'Usuário não encontrado' });
+  }
+
+  const user = rows[0];
+
+  const senhaValida = await bcrypt.compare(senha, user.senha);
+
+  if (!senhaValida) {
+    return res.status(401).json({ error: 'Senha inválida' });
+  }
+
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    expiresIn: '1d'
+  });
+
+  res.json({ token });
 });
 
 const PORT = process.env.PORT || 3000;
