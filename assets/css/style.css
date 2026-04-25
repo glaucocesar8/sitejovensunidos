@@ -262,8 +262,16 @@ body {
 }
 
 .elenco-section {
-  background: #0b1d3a;
-  padding: 20px 0;
+  background: #0b1f3a;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.elenco-cards {
+  background: #010916;
+  padding: 30px 0;
 }
 
 .player-card {
@@ -499,7 +507,7 @@ body {
   max-width: 1000px;
   margin: 15px auto;
   padding: 0 10px;
-  display: flex;
+  display: none;
   justify-content: center;
 }
 
