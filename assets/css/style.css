@@ -550,3 +550,70 @@ body {
   background-color: #0d6efd;
   color: white;
 }
+
+/* BOTÃO */
+.menu-btn {
+  position: absolute;
+  left: 15px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: white;
+  z-index: 1001;
+}
+
+/* MENU */
+.menu-lateral {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: #0b1f3a;
+  padding: 20px;
+  transition: 0.3s;
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-lateral a {
+  color: white;
+  text-decoration: none;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* BOTÃO FECHAR */
+.close-btn {
+  align-self: flex-end;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* OVERLAY */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+/* ATIVO */
+.menu-lateral.active {
+  left: 0;
+}
+
+#overlay.active {
+  opacity: 1;
+  visibility: visible;
+}

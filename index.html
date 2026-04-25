@@ -32,11 +32,16 @@
 
 <!-- NAVBAR -->
 <nav class="navbar py-2 position-relative">
-  <!-- LOGO CENTRAL -->
+
+  <!-- HAMBURGER -->
+  <button class="menu-btn" onclick="abrirMenu()">☰</button>
+
+  <!-- LOGO -->
   <div class="w-100 text-center">
     <img src="assets/img/logo.png" class="logo">
   </div>
-  <!-- REDES (lado direito) -->
+
+  <!-- REDES -->
   <div class="position-absolute end-0 top-50 translate-middle-y pe-3">
     <div class="social d-flex">
       <a href="https://instagram.com/jovens_unidos_f.c"><i class="fab fa-instagram"></i></a>
@@ -44,7 +49,23 @@
       <a href="https://www.tiktok.com/@jovensunidosfc"><i class="fab fa-tiktok"></i></a>
     </div>
   </div>
+
 </nav>
+
+<!-- MENU LATERAL -->
+<div id="menuLateral" class="menu-lateral">
+
+  <button class="close-btn" onclick="fecharMenu()">×</button>
+
+  <a href="login.html">Login</a>
+  <a href="#pesquisarJogos">Jogos</a>  
+  <a href="patrocinio.html">Patrocínio</a>
+  <a href="contato.html">Contato</a>
+
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay" onclick="fecharMenu()"></div>
 
 <!-- PRÓXIMO JOGO 📅 25/04/2026 • ⏰ 16:00 • 📍 Beto Rezek-->
 <section class="next-game-section">
@@ -417,7 +438,7 @@
   </p>
 </section>
 
-<h2 class="text-center mt-5 text-white">Pesquisar Jogos</h2>
+<h2 class="text-center mt-5 text-white" id="pesquisarJogos">Pesquisar Jogos</h2>
 
 <div class="container my-4">
   <div class="row g-2">
@@ -588,6 +609,6 @@
       infinite: true,
       pauseOnHover: false
     });
-  });  
+  });
 
 </script>
