@@ -58,7 +58,7 @@
   <button class="close-btn" onclick="fecharMenu()">×</button>
 
   <a href="login.html">Login</a>
-  <a href="#pesquisarJogos">Jogos</a>  
+  <a href="#pesquisarJogos" id="linkJogos">Jogos</a>  
   <a href="patrocinio.html">Patrocínio</a>
   <a href="contato.html">Contato</a>
 
@@ -609,6 +609,17 @@
       infinite: true,
       pauseOnHover: false
     });
+  });
+
+  document.getElementById('linkJogos').addEventListener('click', function(e) {
+    e.preventDefault(); // impede navegação imediata
+
+    fecharMenu(); // fecha o menu
+
+    setTimeout(() => {
+      document.getElementById('pesquisarJogos')
+        .scrollIntoView({ behavior: 'smooth' });
+    }, 200);
   });
 
 </script>
