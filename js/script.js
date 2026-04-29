@@ -1,4 +1,5 @@
-const API_URL = window.location.hostname === 'localhost'
+const API_URL = window.location.origin.includes('127.0.0.1') || 
+                window.location.origin.includes('localhost')
   ? 'http://localhost:3000'
   : 'https://sitejovensunidos-production.up.railway.app';
 
@@ -275,4 +276,9 @@ async function login() {
   } else {
     alert('Erro no login');
   }
+}
+
+function logout() {
+  localStorage.removeItem('token');
+  window.location.href = 'login.html';
 }

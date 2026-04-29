@@ -7,7 +7,17 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://127.0.0.1:5500',
+    'http://localhost:5500',
+    'https://jovensunidosfc.com.br'
+  ],
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json());
+app.options('*', cors());
 
 function auth(req, res, next) {
   const token = req.headers.authorization;
@@ -180,31 +190,55 @@ app.put('/jogos/:id', async (req, res) => {
   }
 });
 
+// DELETAR
+app.delete('/jogos/:id', auth, async (req, res) => {
+  await db.query('DELETE FROM jogos WHERE id=?', [req.params.id]);
+  res.sendStatus(200);
+});
+
 app.post('/login', async (req, res) => {
-  const { email, senha } = req.body;
+  try {
+    const { email, senha } = req.body;
 
-  const [rows] = await db.query(
-    'SELECT * FROM usuarios WHERE email = ?',
-    [email]
-  );
+    if (!email || !senha) {
+      return res.status(400).json({ error: 'Dados inválidos' });
+    }
 
-  if (rows.length === 0) {
-    return res.status(401).json({ error: 'Usuário não encontrado' });
+    const [rows] = await db.query(
+      'SELECT * FROM usuarios WHERE email = ?',
+      [email]
+    );
+
+    if (rows.length === 0) {
+      return res.status(401).json({ error: 'Usuário não encontrado' });
+    }
+
+    const user = rows[0];
+
+    // 🔥 DEBUG AQUI
+    console.log('EMAIL:', email);
+    console.log('SENHA DIGITADA:', senha);
+    console.log('HASH NO BANCO:', user.senha);
+
+    const senhaValida = await bcrypt.compare(senha.trim(), user.senha);
+    //const senhaValida = await bcrypt.compare(senha, user.senha);
+
+    if (!senhaValida) {
+      return res.status(401).json({ error: 'Senha inválida' });
+    }
+
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    res.json({ token });
+
+  } catch (err) {
+    console.error('ERRO LOGIN:', err);
+    res.status(500).json({ error: 'Erro interno' });
   }
-
-  const user = rows[0];
-
-  const senhaValida = await bcrypt.compare(senha, user.senha);
-
-  if (!senhaValida) {
-    return res.status(401).json({ error: 'Senha inválida' });
-  }
-
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-    expiresIn: '1d'
-  });
-
-  res.json({ token });
 });
 
 const PORT = process.env.PORT || 3000;
