@@ -37,12 +37,6 @@ function auth(req, res, next) {
   }
 }
 
-app.get('/test-env', (req, res) => {
-  res.json({
-    jwt: process.env.JWT_SECRET || 'undefined'
-  });
-});
-
 // Rota principal
 app.get('/', (req, res) => {
   res.status(200).json({
