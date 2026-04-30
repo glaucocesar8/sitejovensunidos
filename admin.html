@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Admin - Jogos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/teste2.css">
 </head>
 
 <body class="bg-dark text-white">
@@ -22,12 +23,16 @@
     <input id="idJogo" type="hidden">
 
     <div class="row g-2">
-      <div class="col-md-6">
-        <input id="timeCasa" class="form-control" placeholder="Time Casa">
+      <!-- TIME CASA -->
+      <div class="col-md-6 position-relative">
+        <input id="timeCasa" class="form-control" placeholder="Buscar Time Casa">
+        <div id="listaCasa" class="list-group position-absolute w-100"></div>
       </div>
 
-      <div class="col-md-6">
-        <input id="timeFora" class="form-control" placeholder="Time Fora">
+      <!-- TIME FORA -->
+      <div class="col-md-6 position-relative">
+        <input id="timeFora" class="form-control" placeholder="Buscar Time Fora">
+        <div id="listaFora" class="list-group position-absolute w-100"></div>
       </div>
 
       <div class="col-md-6">
@@ -50,7 +55,10 @@
 </div>
 
 <script>
-const API_URL = window.location.hostname === 'localhost'
+const API_URL = (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1'
+)
   ? 'http://localhost:3000'
   : 'https://sitejovensunidos-production.up.railway.app';
 
@@ -70,14 +78,43 @@ async function carregarJogos() {
   jogos.forEach(j => {
     container.innerHTML += `
       <div class="col-md-4">
-        <div class="card p-3 text-dark">
+        <div class="card p-3 text-white" style="background:#0f2a52; border-radius:12px;">
 
-          <h6>${j.time_casa} x ${j.time_fora}</h6>
-          <small>${j.local}</small>
+          <div class="d-flex align-items-center justify-content-between">
 
-          <div class="mt-2 d-flex gap-2">
-            <button class="btn btn-warning btn-sm" onclick='editar(${JSON.stringify(j)})'>Editar</button>
-            <button class="btn btn-danger btn-sm" onclick="deletar(${j.id})">Excluir</button>
+            <!-- TIME CASA -->
+            <div class="text-center" style="width:30%;">
+              <img src="${j.logo_casa}" style="width:50px; height:50px; object-fit:contain;">
+              <div style="font-size:12px;">${j.time_casa}</div>
+            </div>
+
+            <!-- PLACAR -->
+            <div class="text-center">
+              <div style="font-size:22px; font-weight:bold;">
+                ${j.gols_casa ?? '-'} x ${j.gols_fora ?? '-'}
+              </div>
+            </div>
+
+            <!-- TIME FORA -->
+            <div class="text-center" style="width:30%;">
+              <img src="${j.logo_fora || 'https://cdn-icons-png.flaticon.com/512/53/53283.png'}"
+  style="width:50px; height:50px; object-fit:contain;"
+  onerror="this.src='https://cdn-icons-png.flaticon.com/512/53/53283.png'" style="width:50px; height:50px; object-fit:contain;">
+              <div style="font-size:12px;">${j.time_fora}</div>
+            </div>
+
+          </div>
+
+          <!-- INFO -->
+          <div class="text-center mt-2" style="font-size:12px;">
+            📍 ${j.local}<br>
+            📅 ${formatarData(j.data_jogo)}
+          </div>
+
+          <!-- BOTÕES -->
+          <div class="mt-3 d-flex gap-2">
+            <button class="btn btn-warning btn-sm w-100" onclick='editar(${JSON.stringify(j)})'>Editar</button>
+            <button class="btn btn-danger btn-sm w-100" onclick="deletar(${j.id})">Excluir</button>
           </div>
 
         </div>
@@ -86,41 +123,63 @@ async function carregarJogos() {
   });
 }
 
-// 💾 salvar (create + update)
+// 💾 salvar
 async function salvarJogo() {
-  const id = document.getElementById('idJogo').value;
+  
+  console.log('CASA:', timeCasaId);
+  console.log('FORA:', timeForaId);
+
+  if (!timeCasaId || !timeForaId) {
+    alert('Selecione os times na lista');
+    return;
+  }
 
   const dados = {
-    time_casa: document.getElementById('timeCasa').value,
-    time_fora: document.getElementById('timeFora').value,
+    time_casa_id: timeCasaId,
+    time_fora_id: timeForaId,
     data_jogo: document.getElementById('data').value,
-    local: document.getElementById('local').value
+    local: document.getElementById('local').value,
+    status: 'agendado',
+    gols_casa: 0,
+    gols_fora: 0
   };
 
-  const url = id
-    ? `${API_URL}/jogos/${id}`
-    : `${API_URL}/jogos`;
+  console.log('ENVIANDO:', dados);
 
-  const metodo = id ? 'PUT' : 'POST';
-
-  await fetch(url, {
-    method: metodo,
+  const res = await fetch(`${API_URL}/jogos`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': token
+      'Authorization': localStorage.getItem('token')
     },
     body: JSON.stringify(dados)
   });
 
-  limparForm();
+  if (res.status === 401) {
+    alert('Sessão expirada. Faça login novamente.');
+    localStorage.removeItem('token');
+    window.location.href = 'login.html';
+    return;
+  }
+
+  const data = await res.json();
+
+  console.log('RESPOSTA:', data);
+
+  if (!res.ok) {
+    alert(data.error || 'Erro ao salvar');
+    return;
+  }
+
+  alert('Jogo criado com sucesso!');
   carregarJogos();
 }
 
 // ✏️ editar
 function editar(jogo) {
   document.getElementById('idJogo').value = jogo.id;
-  document.getElementById('timeCasa').value = jogo.time_casa;
-  document.getElementById('timeFora').value = jogo.time_fora;
+  document.getElementById('timeCasa').value = jogo.time_casa_id;
+  document.getElementById('timeFora').value = jogo.time_fora_id;
   document.getElementById('data').value = jogo.data_jogo?.slice(0,16);
   document.getElementById('local').value = jogo.local;
 }
@@ -152,6 +211,61 @@ function logout() {
   window.location.href = 'login.html';
 }
 
+// 📅 formatar data
+function formatarData(data) {
+  return new Date(data).toLocaleString('pt-BR');
+}
+
 // init
 carregarJogos();
+
+let timeCasaId = null;
+let timeForaId = null;
+
+// 🔍 buscar times
+async function buscarTimes(input, listaId, callback) {
+  const nome = input.value;
+
+  if (nome.length < 2) return;
+
+  const res = await fetch(`${API_URL}/times?nome=${nome}`);
+  const times = await res.json();
+
+  const lista = document.getElementById(listaId);
+  lista.innerHTML = '';
+
+  times.forEach(t => {
+    const item = document.createElement('button');
+
+    item.className = 'list-group-item list-group-item-action d-flex align-items-center gap-2';
+
+    item.innerHTML = `
+      <img src="${t.logo}" 
+           style="width:30px; height:30px; object-fit:contain;">
+      <span>${t.nome}</span>
+    `;
+
+    item.onclick = () => {
+      input.value = t.nome;
+      lista.innerHTML = '';
+      callback(t.id);
+    };
+
+    lista.appendChild(item);
+  });
+}
+
+// EVENTOS
+document.getElementById('timeCasa').addEventListener('input', function() {
+  buscarTimes(this, 'listaCasa', (id) => timeCasaId = id);
+});
+
+document.getElementById('timeFora').addEventListener('input', function() {
+  buscarTimes(this, 'listaFora', (id) => timeForaId = id);
+});
+
+window.addEventListener('beforeunload', () => {
+  localStorage.removeItem('token');
+});
+
 </script>

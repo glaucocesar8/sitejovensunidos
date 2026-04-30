@@ -150,7 +150,8 @@ function filtrar() {
   if (ano) params.append('ano', ano);
   if (diaSemana) { params.append('diaSemana', diaSemana );
 }
-
+  params.append('status', 'finalizado');
+  
   carregarJogos(`${API_URL}/jogos?${params}`);
 }
 
@@ -255,26 +256,38 @@ function auth(req, res, next) {
   }
 }
 
-async function login() {  
-  const res = await fetch(`${API_URL}/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      email: document.getElementById('email').value,
-      senha: document.getElementById('senha').value
-    })
-  });
+async function login() {
+  try {
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
 
-  const data = await res.json();
+    const res = await fetch(`${API_URL}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, senha })
+    });
 
-  if (data.token) {
+    let data;
+
+    try {
+      data = await res.json();
+    } catch {
+      throw new Error('Resposta inválida');
+    }
+
+    if (!res.ok) {
+      mostrarAlerta(data.error || 'Erro no login', 'danger');
+      return;
+    }
+
+    // ✅ SUCESSO
     localStorage.setItem('token', data.token);
-    alert('Login OK!');
-    window.location.href = 'admin.html';
-  } else {
-    alert('Erro no login');
+
+    mostrarAlerta('Login realizado com sucesso!', 'success');
+    
+  } catch (err) {
+    console.error('ERRO REAL:', err);
+    mostrarAlerta('Erro ao conectar com servidor', 'danger');
   }
 }
 

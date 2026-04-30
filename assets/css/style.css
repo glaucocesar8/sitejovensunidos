@@ -617,3 +617,15 @@ body {
   opacity: 1;
   visibility: visible;
 }
+
+.list-group {
+  z-index: 999;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.list-group-item img {
+  border-radius: 50%;
+  background: #fff;
+  padding: 2px;
+}

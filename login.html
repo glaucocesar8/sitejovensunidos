@@ -39,13 +39,21 @@
 
 <script>
 
+// 🔥 API dinâmica (local / produção)
+const API_URL = (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1'
+)
+  ? 'http://localhost:3000'
+  : 'https://sitejovensunidos-production.up.railway.app';
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const form = document.getElementById('formLogin');
   const btn = document.getElementById('btnLogin');
   const alerta = document.getElementById('alerta');
 
-  // 🔐 já está logado? redireciona
+  // 🔐 já logado?
   if (localStorage.getItem('token')) {
     window.location.href = 'admin.html';
   }
@@ -61,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // loading
     btn.disabled = true;
-    btn.innerHTML = 'Entrando...';
+    btn.innerText = 'Entrando...';
 
     try {
       const res = await fetch(`${API_URL}/login`, {
@@ -91,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 800);
 
     } catch (err) {
-      mostrarAlerta('Servidor indisponível', 'danger');
+      console.error('ERRO:', err);
+      mostrarAlerta('Erro ao conectar com servidor', 'danger');
       resetBotao();
     }
   });
@@ -104,8 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function resetBotao() {
     btn.disabled = false;
-    btn.innerHTML = 'Entrar';
+    btn.innerText = 'Entrar';
   }
 
 });
 </script>
+
+</body>
+</html>

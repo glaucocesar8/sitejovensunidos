@@ -22,12 +22,14 @@ app.options('*', cors());
 function auth(req, res, next) {
   const token = req.headers.authorization;
 
+  console.log('TOKEN RECEBIDO:', token);
+
   if (!token) {
     return res.status(401).json({ error: 'Token não enviado' });
   }
 
   try {
-    const decoded = jwt.verify(token, 'SEGREDO_TOP'); // ou process.env.JWT_SECRET
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (err) {
@@ -61,7 +63,7 @@ app.get('/jogos', async (req, res) => {
       FROM jogos j
       JOIN times tc ON tc.id = j.time_casa_id
       JOIN times tf ON tf.id = j.time_fora_id
-      WHERE 1=1
+      WHERE 1=1      
     `;
 
     let filtros = [];
@@ -172,7 +174,7 @@ app.post('/jogos', auth, async (req, res) => {
   }
 });
 
-app.put('/jogos/:id', async (req, res) => {
+app.put('/jogos/:id', auth, async (req, res) => {
   const { id } = req.params;
   const { gols_casa, gols_fora, status } = req.body;
 
@@ -209,20 +211,16 @@ app.post('/login', async (req, res) => {
       [email]
     );
 
+    const [todos] = await db.query('SELECT email, senha FROM usuarios');
+    
     if (rows.length === 0) {
       return res.status(401).json({ error: 'Usuário não encontrado' });
     }
 
-    const user = rows[0];
-
-    // 🔥 DEBUG AQUI
-    console.log('EMAIL:', email);
-    console.log('SENHA DIGITADA:', senha);
-    console.log('HASH NO BANCO:', user.senha);
+    const user = rows[0];    
 
     const senhaValida = await bcrypt.compare(senha.trim(), user.senha);
-    //const senhaValida = await bcrypt.compare(senha, user.senha);
-
+    
     if (!senhaValida) {
       return res.status(401).json({ error: 'Senha inválida' });
     }
@@ -239,6 +237,19 @@ app.post('/login', async (req, res) => {
     console.error('ERRO LOGIN:', err);
     res.status(500).json({ error: 'Erro interno' });
   }
+});
+
+app.post('/register', auth, async (req, res) => {
+  const { email, senha } = req.body;
+
+  const hash = await bcrypt.hash(senha, 10);
+
+  await db.query(
+    'INSERT INTO usuarios (email, senha) VALUES (?, ?)',
+    [email, hash]
+  );
+
+  res.json({ ok: true });
 });
 
 const PORT = process.env.PORT || 3000;
