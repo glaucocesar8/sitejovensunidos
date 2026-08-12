@@ -1,7 +1,8 @@
-const API_URL = window.location.origin.includes('127.0.0.1') ||
-                window.location.origin.includes('localhost')
-  ? 'http://localhost:3000'
-  : '/api';
+const API_URL =
+  window.location.origin.includes('127.0.0.1') ||
+  window.location.origin.includes('localhost')
+    ? 'http://localhost:3000'
+    : window.location.origin;
 
 // 🔥 CARREGAR JOGOS INICIAIS
 function carregarJogos(url = `${API_URL}/jogos`) {
