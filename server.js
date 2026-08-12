@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const path = require('path');
 
 const {
   sheets,
@@ -33,6 +34,8 @@ app.use(cors({
 app.use(express.json());
 
 app.options('*', cors());
+
+app.use(express.static(__dirname));
 
 
 // ======================================================
@@ -106,12 +109,7 @@ function auth(req, res, next) {
 // ======================================================
 
 app.get('/', (req, res) => {
-
-  res.status(200).json({
-    status: 'ok',
-    message: 'API Jovens Unidos 🚀'
-  });
-
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 
