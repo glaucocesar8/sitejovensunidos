@@ -35,7 +35,8 @@ app.use(express.json());
 
 app.options('*', cors());
 
-app.use(express.static(__dirname));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
 
 
 // ======================================================
