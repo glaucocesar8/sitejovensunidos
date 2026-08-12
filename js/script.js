@@ -1,7 +1,7 @@
-const API_URL = window.location.origin.includes('127.0.0.1') || 
+const API_URL = window.location.origin.includes('127.0.0.1') ||
                 window.location.origin.includes('localhost')
   ? 'http://localhost:3000'
-  : 'https://sitejovensunidos-production.up.railway.app';
+  : '/api';
 
 // 🔥 CARREGAR JOGOS INICIAIS
 function carregarJogos(url = `${API_URL}/jogos`) {
@@ -216,7 +216,7 @@ document.getElementById('formJogo').addEventListener('submit', async (e) => {
   await fetch(`${API_URL}/jogos`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json',
-                'Authorization': token
+                'Authorization': `Bearer ${token}`
      },
     body: JSON.stringify({
       time_casa_id: document.getElementById('casa').value,
@@ -231,29 +231,41 @@ document.getElementById('formJogo').addEventListener('submit', async (e) => {
 });
 
 async function atualizarJogo(id) {
-  await fetch(`${API_URL}/jogos/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      gols_casa: 2,
-      gols_fora: 1,
-      status: 'finalizado'
-    })
-  });
-}
 
-function auth(req, res, next) {
-  const token = req.headers.authorization;
+  const token =
+    localStorage.getItem('token');
 
-  if (!token) return res.sendStatus(401);
+  const response =
+    await fetch(`${API_URL}/jogos/${id}`, {
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch {
-    return res.sendStatus(403);
-  }
+      method: 'PUT',
+
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+
+      body: JSON.stringify({
+
+        gols_casa: 2,
+
+        gols_fora: 1,
+
+        status: 'finalizado'
+
+      })
+
+    });
+
+
+  const data =
+    await response.json();
+
+  console.log(
+    'Atualização:',
+    data
+  );
+
 }
 
 async function login() {
