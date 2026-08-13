@@ -39,7 +39,7 @@ function carregarJogos(url = `${API_URL}/jogos`) {
                 </div>
 
                 <div class="team">
-                  <img src="${jogo.logo_fora || 'https://cdn-icons-png.flaticon.com/512/53/53283.png'}" class="team-logo">
+                  <img src="${jogo.logo_fora || 'https://cdn-icons-png.flaticon.com/512/53/53283.png'}" class="team-logo" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/53/53283.png';">
                   <span>${jogo.time_fora}</span>
                 </div>
 
