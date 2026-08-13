@@ -1553,6 +1553,38 @@ app.post('/login', async (req, res) => {
 
 });
 
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+app.get('/login.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+// Página administrativa
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+app.get('/admin.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+// ======================================================
+// PATROCÍNIO
+// ======================================================
+
+app.get('/patrocinio.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'patrocinio.html'));
+});
+
+// ======================================================
+// CONTATO
+// ======================================================
+
+app.get('/contato.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'contato.html'));
+});
 
 // ======================================================
 // TESTE GOOGLE SHEETS
