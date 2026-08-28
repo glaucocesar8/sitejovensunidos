@@ -157,47 +157,276 @@ function filtrar() {
 }
 
 // PRÓXIMO JOGO
-function carregarProximoJogo() {
-  fetch(`${API_URL}/proximo-jogo`)
-    .then(res => res.json())
-    .then(jogo => {
+// PRÓXIMOS JOGOS
 
-      if (!jogo) {
-        document.getElementById('infoJogo').innerText = 'Nenhum jogo agendado';
-        return;
+// ==========================================
+// PRÓXIMOS JOGOS
+// ==========================================
+
+function carregarProximosJogos() {
+
+  fetch(`${API_URL}/proximos-jogos`)
+
+    .then(res => res.json())
+
+    .then(jogos => {
+
+      const container =
+        document.getElementById('lista-proximos-jogos');
+
+      if (!container) return;
+
+
+      // ==========================================
+      // DESTRUIR SLICK ANTERIOR
+      // ==========================================
+
+      if ($(container).hasClass('slick-initialized')) {
+
+        $(container).slick('unslick');
+
       }
 
-      // nomes
-      document.getElementById('timeFora').innerText = jogo.time_fora;
-      document.getElementById('timeCasa').innerText = jogo.time_casa;
 
-      // logos
-      document.getElementById('logoFora').src = jogo.logo_fora;
-      document.getElementById('logoCasa').src = jogo.logo_casa;
+      // Limpa os cards
 
-      const dataStr = jogo.data_jogo;
+      container.innerHTML = '';
 
-      // 🔥 remove o Z (UTC)
-      const semUTC = dataStr.replace('Z', '');
 
-      // cria a data sem conversão de fuso
-      const data = new Date(semUTC);
+      // ==========================================
+      // NENHUM JOGO
+      // ==========================================
 
-      // pega valores manualmente
-      const dia = String(data.getDate()).padStart(2, '0');
-      const mes = String(data.getMonth() + 1).padStart(2, '0');
-      const ano = data.getFullYear();
+      if (!jogos || jogos.length === 0) {
 
-      const hora = String(data.getHours()).padStart(2, '0');
-      const minuto = String(data.getMinutes()).padStart(2, '0');
+        container.innerHTML = `
+          <div class="next-game-card">
 
-      document.getElementById('infoJogo').innerText =
-        `📅 ${dia}/${mes}/${ano} • ⏰ ${hora}:${minuto} • 📍 ${jogo.local}`;
+            <div class="text-center">
+              Nenhum jogo agendado
+            </div>
+
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      // ==========================================
+      // CRIAR OS CARDS
+      // ==========================================
+
+      jogos.forEach(jogo => {
+
+        const dataStr =
+          jogo.data_jogo || '';
+
+
+        // Remove Z caso exista
+
+        const semUTC =
+          dataStr.replace('Z', '');
+
+
+        // Mantém o horário da planilha
+
+        const data =
+          new Date(
+            semUTC.replace(' ', 'T')
+          );
+
+
+        // ==========================================
+        // DATA
+        // ==========================================
+
+        const dia =
+          String(
+            data.getDate()
+          ).padStart(2, '0');
+
+
+        const mes =
+          String(
+            data.getMonth() + 1
+          ).padStart(2, '0');
+
+
+        const ano =
+          data.getFullYear();
+
+
+        // ==========================================
+        // HORA
+        // ==========================================
+
+        const hora =
+          String(
+            data.getHours()
+          ).padStart(2, '0');
+
+
+        const minuto =
+          String(
+            data.getMinutes()
+          ).padStart(2, '0');
+
+
+        // ==========================================
+        // CRIAR CARD
+        // ==========================================
+
+        const card =
+          document.createElement('div');
+
+
+        card.className =
+          'next-game-card';
+
+
+        card.innerHTML = `
+
+          <span class="next-label">
+            PRÓXIMO JOGO
+          </span>
+
+
+          <div class="match">
+
+            <!-- TIME FORA -->
+
+            <div class="team">
+
+              <img
+                src="${jogo.logo_fora || ''}"
+                class="mini-logo-time-fora"
+                onerror="
+                  this.onerror=null;
+                  this.style.display='none';
+                "
+              >
+
+              <span>
+                ${jogo.time_fora || '-'}
+              </span>
+
+            </div>
+
+
+            <!-- VS -->
+
+            <strong>
+              VS
+            </strong>
+
+
+            <!-- TIME CASA -->
+
+            <div class="team">
+
+              <img
+                src="${jogo.logo_casa || ''}"
+                class="mini-logo"
+                onerror="
+                  this.onerror=null;
+                  this.style.display='none';
+                "
+              >
+
+              <span>
+                ${jogo.time_casa || '-'}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- INFORMAÇÕES -->
+
+          <div class="match-info">
+
+            <p>
+              📅 ${dia}/${mes}/${ano}
+              • ⏰ ${hora}:${minuto}
+              • 📍 ${jogo.local || '-'}
+            </p>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+      });
+
+
+      // ==========================================
+      // INICIALIZA SLICK
+      // ==========================================
+
+      $(container).slick({
+
+        autoplay: true,
+
+        autoplaySpeed: 4000,
+
+        arrows: true,
+
+        dots: true,
+
+        infinite: true,
+
+        slidesToShow: 1,
+
+        slidesToScroll: 1,
+
+        variableWidth: false,
+
+        adaptiveHeight: true,
+
+        swipe: true,
+
+        draggable: true
+
+      });
+
+    })
+
+
+    // ==========================================
+    // ERRO
+    // ==========================================
+
+    .catch(error => {
+
+      console.error(
+        'Erro ao carregar próximos jogos:',
+        error
+      );
+
     });
+
 }
 
+
+// ==========================================
+// CARREGAR QUANDO A PÁGINA ABRIR
+// ==========================================
+
+document.addEventListener(
+  'DOMContentLoaded',
+  carregarProximosJogos
+);
+
 // chama ao carregar
-document.addEventListener('DOMContentLoaded', carregarProximoJogo);
+document.addEventListener(
+  'DOMContentLoaded',
+  carregarProximosJogos
+);
 
 function abrirMenu() {
   document.getElementById('menuLateral').classList.add('active');
@@ -307,4 +536,72 @@ async function login() {
 function logout() {
   localStorage.removeItem('token');
   window.location.href = 'login.html';
+}
+
+async function carregarJogadores() {
+  try {
+    const response = await fetch(`${API_URL}/jogadores`);
+
+    if (!response.ok) {
+      throw new Error(`Erro HTTP: ${response.status}`);
+    }
+
+    const jogadores = await response.json();
+
+    const container = document.getElementById('lista-jogadores');
+
+    if (!container) return;
+
+    if ($(container).hasClass('slick-initialized')) {
+      $(container).slick('unslick');
+    }
+
+    container.innerHTML = '';
+
+    jogadores.forEach(jogador => {
+
+    const card = document.createElement('div');
+
+    card.className = 'player-card d-flex align-items-center';
+
+    card.innerHTML = `
+
+      ${
+        jogador.foto
+          ? `<img
+              src="${jogador.foto}"
+              class="player-img"
+              onerror="this.style.display='none';"
+            >`
+          : ''
+      }
+
+      <div class="player-info ms-3 text-start">
+
+        <h5>${jogador.nome}</h5>
+
+        <span class="position">
+          ${jogador.posicao || '-'}
+        </span>
+
+        <div class="player-stats mt-2">
+
+          <p>Idade:</p>
+          <span>${jogador.idade || '-'}</span>
+
+          <p>Data nascimento:</p>
+          <span>${jogador.data_nascimento || '-'}</span>
+
+        </div>
+
+      </div>
+    `;
+
+  container.appendChild(card);
+});
+    
+
+  } catch (error) {
+    console.error('Erro ao carregar jogadores:', error);
+  }
 }

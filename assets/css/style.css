@@ -5,7 +5,7 @@ body {
 }
 
 /* NAVBAR */
-.navbar {  
+.navbar {
   display: flex;
 }
 
@@ -25,7 +25,7 @@ body {
 
 /* MOBILE */
 @media (max-width: 576px) {
-  .logo {    
+  .logo {
     width: 70px;
     top: 55%;
   }
@@ -160,7 +160,7 @@ body {
 }
 
 /* PRÓXIMO JOGO */
-.next-game {  
+.next-game {
   padding: 12px 0;
   text-align: center;
 }
@@ -214,7 +214,7 @@ body {
   color: #06142b;
 }
 
-.next-game-card { 
+.next-game-card {
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.4);
@@ -227,6 +227,7 @@ body {
   margin-bottom: 5px;
 }
 
+/* CAROUSEL ANTIGO */
 #carouselElenco img {
   height: 150px;
   object-fit: cover;
@@ -250,24 +251,10 @@ body {
   transition: transform 0.4s ease;
 }
 
-.player-img {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain; /* mantém o jogador inteiro */
-  width: 150px;
-  height: 170px;
-  object-fit: contain;
-  background: black;
-  border-radius: 10px;
-}
 
-.elenco-section {
-  background: #0b1f3a;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* =========================================
+   ELENCO
+========================================= */
 
 .elenco-cards {
   background: #010916;
@@ -277,61 +264,79 @@ body {
 .player-card {
   background: #112b52;
   border-radius: 15px;
-  padding: 20px;
-  text-align: center;
-  transition: 0.3s;
-  display: flex;  
+  padding: 15px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
   gap: 15px;
-  width: 320px;
-  height: 190px;  
-}
-
-.player-card img {
-  width: 50%;
-  
-  object-fit: contain;    /* mantém padrão bonito */
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.player-card h5 {
-  margin: 5px 0;
-}
-
-.player-card span {
-  font-size: 0.9rem;
-  opacity: 0.7;
+  width: 420px;
+  max-width: 100%;
+  height: 190px;
+  color: white;
+  transition: 0.3s;
 }
 
 .player-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
   background: #16386b;
 }
 
-/* Slick ajustes */
-.slick-slide {
+.player-card img.player-img {
+  width: 120px;
+  height: 160px;
+  flex-shrink: 0;
+  object-fit: contain;
+  background: #000;
+  border-radius: 10px;
+}
+
+.player-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.player-info h5 {
+  margin: 0 0 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.player-info .position {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.player-stats p {
+  margin: 3px 0 0;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.player-stats span {
+  font-size: 0.9rem;
+}
+
+/* SLICK DO ELENCO */
+
+.slider-elenco {
+  width: 100%;
+}
+
+.slider-elenco .slick-slide {
   padding: 10px;
 }
 
 .slick-center .player-card {
-  transform: scale(1.1);
+  transform: scale(1.05);
   background: #1d4b8f;
 }
 
-.player-info h5 {
-  margin: 0;
-  font-size: 1.1rem;
-}
 
-.position {
-  font-size: 0.85rem;
-  opacity: 0.7;
-}
-
-.player-stats p {
-  margin: 0;
-  font-size: 0.8rem;
-}
+/* =========================================
+   PÁGINAS INTERNAS
+========================================= */
 
 .page-container {
   max-width: 900px;
@@ -377,6 +382,11 @@ body {
   margin-bottom: 8px;
 }
 
+
+/* =========================================
+   BOTÕES
+========================================= */
+
 .btn-success {
   background-color: #25D366;
   border: none;
@@ -406,6 +416,11 @@ body {
   transform: scale(1.05);
   opacity: 0.9;
 }
+
+
+/* =========================================
+   FOOTER
+========================================= */
 
 .footer {
   background-color: #06142b;
@@ -442,6 +457,11 @@ body {
   color: #3ea6ff;
 }
 
+
+/* =========================================
+   HERO SLIDER
+========================================= */
+
 .hero-slider {
   position: relative;
 }
@@ -459,7 +479,11 @@ body {
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.6),
+    rgba(0,0,0,0.9)
+  );
 }
 
 .hero-content {
@@ -478,15 +502,24 @@ body {
   font-size: 1.2rem;
 }
 
-/* BOTÃO WHATSAPP */
+
+/* =========================================
+   BOTÃO WHATSAPP
+========================================= */
+
 .btn-whatsapp {
   background-color: #25D366;
   color: white;
   border: none;
 }
 
-/* SETAS */
-.slick-prev, .slick-next {
+
+/* =========================================
+   SETAS SLICK
+========================================= */
+
+.slick-prev,
+.slick-next {
   z-index: 10;
 }
 
@@ -497,6 +530,11 @@ body {
 .slick-next {
   right: 20px;
 }
+
+
+/* =========================================
+   ADSENSE
+========================================= */
 
 .adsbygoogle {
   max-width: 100%;
@@ -511,21 +549,34 @@ body {
   justify-content: center;
 }
 
+
 /* TABLET */
+
 @media (max-width: 992px) {
+
   .ads-container {
     min-height: 100px;
     padding: 0 10px;
   }
+
 }
 
+
 /* MOBILE */
+
 @media (max-width: 576px) {
+
   .ads-container {
     min-height: unset;
     padding: 0 10px;
   }
+
 }
+
+
+/* =========================================
+   SUGESTÕES DE TIMES
+========================================= */
 
 #sugestoes {
   z-index: 1000;
@@ -551,7 +602,11 @@ body {
   color: white;
 }
 
-/* BOTÃO */
+
+/* =========================================
+   MENU
+========================================= */
+
 .menu-btn {
   position: absolute;
   left: 15px;
@@ -562,7 +617,6 @@ body {
   z-index: 1001;
 }
 
-/* MENU */
 .menu-lateral {
   position: fixed;
   top: 0;
@@ -584,7 +638,9 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
+
 /* BOTÃO FECHAR */
+
 .close-btn {
   align-self: flex-end;
   font-size: 24px;
@@ -594,7 +650,9 @@ body {
   margin-bottom: 20px;
 }
 
+
 /* OVERLAY */
+
 #overlay {
   position: fixed;
   top: 0;
@@ -608,7 +666,9 @@ body {
   z-index: 1000;
 }
 
+
 /* ATIVO */
+
 .menu-lateral.active {
   left: 0;
 }
@@ -617,6 +677,11 @@ body {
   opacity: 1;
   visibility: visible;
 }
+
+
+/* =========================================
+   LISTAS
+========================================= */
 
 .list-group {
   z-index: 999;
@@ -628,4 +693,390 @@ body {
   border-radius: 50%;
   background: #fff;
   padding: 2px;
+}
+
+
+/* =========================================
+   ELENCO - MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .player-card {
+    width: calc(100% - 20px);
+    max-width: 320px;
+    margin: 10px auto;
+    height: 190px;
+  }
+
+  .player-card img.player-img {
+    width: 100px;
+    height: 150px;
+  }
+
+}
+
+.slider-elenco .player-card {
+  width: 250px !important;
+  margin: 10px;
+}
+
+#lista-proximos-jogos {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+#lista-proximos-jogos .next-game-card {
+  width: 380px;
+  max-width: 100%;
+}
+
+#lista-proximos-jogos .match {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+#lista-proximos-jogos .team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+#lista-proximos-jogos .team span {
+  text-align: center;
+}
+
+/* =========================================
+   PRÓXIMOS JOGOS - SLICK SLIDER
+========================================= */
+
+.next-game-section {
+  margin-top: 10px;
+  background-color: #e8edf1;
+  color: #06142b;
+  padding: 0 0 15px 0;
+}
+
+
+/* TÍTULO */
+
+.next-game-section > .container {
+  width: 100%;
+}
+
+
+/* SLIDER */
+
+.slider-proximos-jogos {
+  width: 700px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+
+/* LISTA DO SLICK */
+
+.slider-proximos-jogos .slick-list {
+  width: 100%;
+  overflow: hidden;
+}
+
+
+/* TRACK */
+
+.slider-proximos-jogos .slick-track {
+  display: flex;
+  align-items: stretch;
+}
+
+
+/* CADA SLIDE */
+
+.slider-proximos-jogos .slick-slide {
+  display: block;
+  height: auto;
+}
+
+
+/* IMPORTANTE:
+   o conteúdo do slide ocupa toda a largura */
+
+.slider-proximos-jogos .slick-slide > div {
+  width: 100%;
+}
+
+
+/* =========================================
+   CARD DO JOGO
+========================================= */
+
+.slider-proximos-jogos .next-game-card {
+  width: 100% !important;
+  margin: 0;
+  box-sizing: border-box;
+
+  padding: 15px 25px;
+
+  background-color: #ffffff;
+  color: #06142b;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 4px 15px rgba(0,0,0,0.25);
+}
+
+
+/* =========================================
+   LABEL
+========================================= */
+
+.slider-proximos-jogos .next-label {
+
+  display: block;
+
+  text-align: left;
+
+  font-size: 0.75rem;
+
+  opacity: 0.8;
+
+  margin-bottom: 10px;
+
+}
+
+
+/* =========================================
+   TIMES + VS
+========================================= */
+
+.slider-proximos-jogos .match {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 25px;
+
+  margin: 5px 0;
+
+}
+
+
+/* =========================================
+   TIME
+========================================= */
+
+.slider-proximos-jogos .team {
+
+  display: flex;
+
+  flex-direction: row;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  width: 35%;
+
+}
+
+
+/* NOME DO TIME */
+
+.slider-proximos-jogos .team span {
+
+  font-size: 1.1rem;
+
+  font-weight: bold;
+
+  text-align: center;
+
+}
+
+
+/* =========================================
+   LOGOS
+========================================= */
+
+.slider-proximos-jogos .mini-logo,
+.slider-proximos-jogos .mini-logo-time-fora {
+
+  width: 65px;
+
+  height: 65px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+
+}
+
+
+/* =========================================
+   VS
+========================================= */
+
+.slider-proximos-jogos .match strong {
+
+  font-size: 1.3rem;
+
+  margin: 0 10px;
+
+  flex-shrink: 0;
+
+}
+
+
+/* =========================================
+   INFORMAÇÕES DO JOGO
+========================================= */
+
+.slider-proximos-jogos .match-info {
+
+  text-align: center;
+
+  margin-top: 12px;
+
+  font-size: 0.8rem;
+
+}
+
+
+.slider-proximos-jogos .match-info p {
+
+  margin: 0;
+
+}
+
+
+/* =========================================
+   SETAS
+========================================= */
+
+.slider-proximos-jogos .slick-prev,
+.slider-proximos-jogos .slick-next {
+
+  z-index: 20;
+
+}
+
+
+/* seta esquerda */
+
+.slider-proximos-jogos .slick-prev {
+
+  left: 10px;
+
+}
+
+
+/* seta direita */
+
+.slider-proximos-jogos .slick-next {
+
+  right: 10px;
+
+}
+
+
+/* =========================================
+   DOTS
+========================================= */
+
+.slider-proximos-jogos .slick-dots {
+
+  position: relative;
+
+  bottom: auto;
+
+  margin-top: 5px;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .slider-proximos-jogos .next-game-card {
+
+    padding: 15px;
+
+  }
+
+
+  .slider-proximos-jogos .match {
+
+    gap: 10px;
+
+  }
+
+
+  .slider-proximos-jogos .team {
+
+    width: 40%;
+
+    flex-direction: column;
+
+  }
+
+
+  .slider-proximos-jogos .team span {
+
+    font-size: 0.9rem;
+
+  }
+
+
+  .slider-proximos-jogos .mini-logo,
+  .slider-proximos-jogos .mini-logo-time-fora {
+
+    width: 55px;
+
+    height: 55px;
+
+  }
+
+
+  .slider-proximos-jogos .match strong {
+
+    font-size: 1.1rem;
+
+    margin: 0 5px;
+
+  }
+
+}
+
+.slider-proximos-jogos .slick-prev,
+.slider-proximos-jogos .slick-next {
+  display: block !important;
+  z-index: 10;
+  opacity: 1;
+}
+
+.slider-proximos-jogos .slick-prev:before,
+.slider-proximos-jogos .slick-next:before {
+  color: #000 !important;
+  opacity: 1 !important;
+}
+
+.slider-proximos-jogos .slick-prev {
+  left: -35px;
+}
+
+.slider-proximos-jogos .slick-next {
+  right: -35px;
 }

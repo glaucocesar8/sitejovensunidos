@@ -848,6 +848,241 @@ app.get('/proximo-jogo', async (req, res) => {
 
 });
 
+// ==========================================
+// PRÓXIMOS JOGOS
+// ==========================================
+
+app.get('/proximos-jogos', async (req, res) => {
+
+  try {
+
+    // ==========================================
+    // LER JOGOS
+    // ==========================================
+
+    const jogosResponse =
+      await sheets.spreadsheets.values.get({
+        spreadsheetId: SPREADSHEET_ID,
+        range: 'jogos!A1:H1000'
+      });
+
+    const jogosRows =
+      jogosResponse.data.values || [];
+
+    const jogos =
+      jogosRows.slice(1);
+
+
+    // ==========================================
+    // LER TIMES
+    // ==========================================
+
+    const timesResponse =
+      await sheets.spreadsheets.values.get({
+        spreadsheetId: SPREADSHEET_ID,
+        range: 'times!A1:C1000'
+      });
+
+    const timesRows =
+      timesResponse.data.values || [];
+
+    const times =
+      timesRows.slice(1);
+
+
+    // ==========================================
+    // MAPA DOS TIMES
+    // ==========================================
+
+    const timesMap =
+      new Map();
+
+    times.forEach(time => {
+
+      const id =
+        Number(time[0]);
+
+      timesMap.set(id, {
+
+        id,
+
+        nome:
+          time[1] || '',
+
+        logo:
+          time[2] || ''
+
+      });
+
+    });
+
+
+    // ==========================================
+    // DATA ATUAL
+    // ==========================================
+
+    const agora =
+      new Date();
+
+
+    // ==========================================
+    // ENCONTRAR TODOS OS PRÓXIMOS JOGOS
+    // ==========================================
+
+    const proximosJogos = jogos
+
+      .map(jogo => {
+
+        const id =
+          Number(jogo[0]);
+
+        const timeCasaId =
+          Number(jogo[1]);
+
+        const timeForaId =
+          Number(jogo[2]);
+
+        const dataJogo =
+          jogo[5] || '';
+
+        const local =
+          jogo[6] || '';
+
+        const status =
+          jogo[7] || '';
+
+
+        const dataConvertida =
+          new Date(
+            dataJogo.replace(
+              ' ',
+              'T'
+            )
+          );
+
+
+        const timeCasa =
+          timesMap.get(
+            timeCasaId
+          );
+
+        const timeFora =
+          timesMap.get(
+            timeForaId
+          );
+
+
+        return {
+
+          id,
+
+          time_casa:
+            timeCasa
+              ? timeCasa.nome
+              : '',
+
+          time_fora:
+            timeFora
+              ? timeFora.nome
+              : '',
+
+          logo_casa:
+            timeCasa
+              ? timeCasa.logo
+              : '',
+
+          logo_fora:
+            timeFora
+              ? timeFora.logo
+              : '',
+
+          data_jogo:
+            dataJogo,
+
+          dataConvertida,
+
+          local,
+
+          status
+
+        };
+
+      })
+
+
+      // ==========================================
+      // FILTRAR JOGOS AGENDADOS E FUTUROS
+      // ==========================================
+
+      .filter(jogo => {
+
+        return (
+
+          jogo.status ===
+          'agendado'
+
+          &&
+
+          jogo.dataConvertida >=
+          agora
+
+        );
+
+      })
+
+
+      // ==========================================
+      // ORDENAR POR DATA
+      // ==========================================
+
+      .sort((a, b) => {
+
+        return (
+          a.dataConvertida -
+          b.dataConvertida
+        );
+
+      });
+
+
+    // ==========================================
+    // REMOVER DATA AUXILIAR
+    // ==========================================
+
+    proximosJogos.forEach(jogo => {
+
+      delete jogo.dataConvertida;
+
+    });
+
+
+    // ==========================================
+    // RETORNAR TODOS
+    // ==========================================
+
+    res.json(proximosJogos);
+
+
+  } catch (error) {
+
+    console.error(
+      'ERRO AO BUSCAR PRÓXIMOS JOGOS NO GOOGLE SHEETS:',
+      error
+    );
+
+    res.status(500).json({
+
+      error:
+        'Erro ao buscar próximos jogos',
+
+      details:
+        error.message
+
+    });
+
+  }
+
+});
 
 // ======================================================
 // POST /JOGOS
@@ -1410,6 +1645,41 @@ app.delete('/jogos/:id', auth, async (req, res) => {
 
 });
 
+// ======================================================
+// GET /JOGADORES
+// ======================================================
+
+app.get('/jogadores', async (req, res) => {
+  try {
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: SPREADSHEET_ID,
+      range: 'jogadores!A:E'
+    });
+
+    const rows = response.data.values || [];
+
+    if (rows.length <= 1) {
+      return res.json([]);
+    }
+
+    const jogadores = rows.slice(1).map((j, index) => ({
+      id: index + 1,
+      nome: j[0] || '',
+      data_nascimento: j[1] || '',
+      idade: j[2] || '',
+      posicao: j[3] || '',
+      foto: j[4] || ''
+    }));
+
+    res.json(jogadores);
+
+  } catch (error) {
+    console.error('Erro ao buscar jogadores:', error);
+    res.status(500).json({
+      erro: 'Erro ao buscar jogadores'
+    });
+  }
+});
 
 // ======================================================
 // POST /LOGIN
